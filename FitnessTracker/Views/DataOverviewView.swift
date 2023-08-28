@@ -24,18 +24,23 @@ struct DataOverviewView: View {
             }
             .padding(.horizontal, 30)
             ScrollView(.vertical, showsIndicators: false) {
-                if addingEntry {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 15).fill(Color.yellow).frame(height: 45)
-                        FocusUIKitTextField(text: $count, isFirstResponder: true, numbersOnly: true)
-                        .frame(height: 30)
-                    }
-                }
-                VStack(spacing: 5) {
-                    ForEach(user.trackables[dataIndex].entries.indices, id: \.self) { index in
-                        ZStack(alignment: .leading) {
+                ScrollViewReader { value in
+                    if addingEntry {
+                        ZStack {
                             RoundedRectangle(cornerRadius: 15).fill(Color.yellow).frame(height: 45)
-                            Text("\(user.trackables[dataIndex].entries[index])").foregroundColor(Color.white)
+                            FocusUIKitTextField(text: $count, isFirstResponder: true, numbersOnly: true)
+                            .frame(height: 30)
+                        }.id(0)
+                        .onAppear {
+                            value.scrollTo(0)
+                        }
+                    }
+                    VStack(spacing: 5) {
+                        ForEach(user.trackables[dataIndex].entries.indices.reversed(), id: \.self) { index in
+                            ZStack(alignment: .leading) {
+                                RoundedRectangle(cornerRadius: 15).fill(Color.yellow).frame(height: 45)
+                                Text("\(user.trackables[dataIndex].entries[index])").foregroundColor(Color.white)
+                            }
                         }
                     }
                 }
@@ -48,7 +53,12 @@ struct DataOverviewView: View {
             .padding(.horizontal, 30).frame(height: 250)
             HStack(spacing: 10) {
                 Button(action: {
-                    manager.setView(view: AnyView(MainView(user: user).environmentObject(manager)))
+                    if addingEntry {
+                        addingEntry = false
+                        count = ""
+                    } else {
+                        manager.setView(view: AnyView(MainView(user: user).environmentObject(manager)))
+                    }
                 }) {
                     ZStack {
                         Circle().fill(Color.black)

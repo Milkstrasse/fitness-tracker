@@ -82,4 +82,8 @@ struct TrackableData: Codable {
             entries.append(count)
         }
     }
+    
+    mutating func removeEntry(index: Int) {
+        entries.remove(at: index)
+    }
 }

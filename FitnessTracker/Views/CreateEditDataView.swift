@@ -18,6 +18,8 @@ struct CreateEditDataView: View {
     
     let symbols: [String] = ["0xf005", "0xf004", "0xf186", "0xf185", "0xf06d", "0xf043", "0xf56b", "0xf06c"]
     
+    @State var buttonPressed: Int = -1
+    
     func createSymbol(string: String) -> String {
         let icon: UInt16 = UInt16(Float64(string) ?? 0xf128)
         return String(Character(UnicodeScalar(icon)!))
@@ -40,7 +42,7 @@ struct CreateEditDataView: View {
                 FocusUIKitTextField(text: $name, isFirstResponder: true, numbersOnly: false)
                 .frame(height: 30)
             }
-            .padding(.bottom, 10)
+            .padding(.bottom, 10).padding(.horizontal, 30)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 5) {
                     ForEach(symbols.indices, id: \.self) { index in
@@ -53,6 +55,34 @@ struct CreateEditDataView: View {
                             }
                             .frame(width: 45, height: 45)
                         }
+                    }
+                }
+            }
+            .padding(.horizontal, 30)
+            if dataIndex != -1 {
+                ScrollView(.vertical, showsIndicators: false) {
+                    if !user.trackables[dataIndex].entries.isEmpty {
+                        VStack(spacing: 5) {
+                            ForEach(user.trackables[dataIndex].entries.indices.reversed(), id: \.self) { index in
+                                ZStack(alignment: .trailing) {
+                                    EntryView(entry: user.trackables[dataIndex].entries[index], isPressed: buttonPressed == index)
+                                    Button(action: {
+                                        user.trackables[dataIndex].removeEntry(index: index)
+                                    }) {
+                                        Color.clear.frame(width: 45, height: 45)
+                                    }
+                                    .simultaneousGesture(DragGesture(minimumDistance: 0)
+                                        .onChanged({ _ in
+                                            buttonPressed = index
+                                        })
+                                        .onEnded({ _ in
+                                            buttonPressed = -1
+                                        })
+                                    )
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 30)
                     }
                 }
             }
@@ -75,7 +105,6 @@ struct CreateEditDataView: View {
                 .frame(width: 75, height: 75)
             }
         }
-        .padding(.horizontal, 30)
         .onAppear {
             if dataIndex != -1 {
                 name = user.trackables[dataIndex].name
