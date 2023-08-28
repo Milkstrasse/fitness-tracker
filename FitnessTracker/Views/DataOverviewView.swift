@@ -17,25 +17,25 @@ struct DataOverviewView: View {
     @State var count: String = ""
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 10) {
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 15).fill(Color.yellow).frame(height: 55)
                 Text(user.trackables[dataIndex].name.uppercased()).foregroundColor(Color.white)
             }
-            .padding(.horizontal, 30)
+            .padding(.horizontal, 30).padding(.top, 20)
             ScrollView(.vertical, showsIndicators: false) {
                 ScrollViewReader { value in
-                    if addingEntry {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 15).fill(Color.yellow).frame(height: 45)
-                            FocusUIKitTextField(text: $count, isFirstResponder: true, numbersOnly: true)
-                            .frame(height: 30)
-                        }.id(0)
-                        .onAppear {
-                            value.scrollTo(0)
-                        }
-                    }
                     VStack(spacing: 5) {
+                        if addingEntry {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 15).fill(Color.yellow).frame(height: 45)
+                                FocusUIKitTextField(text: $count, isFirstResponder: true, numbersOnly: true)
+                                .frame(height: 30)
+                            }.id(0)
+                            .onAppear {
+                                value.scrollTo(0)
+                            }
+                        }
                         ForEach(user.trackables[dataIndex].entries.indices.reversed(), id: \.self) { index in
                             ZStack(alignment: .leading) {
                                 RoundedRectangle(cornerRadius: 15).fill(Color.yellow).frame(height: 45)
@@ -46,11 +46,15 @@ struct DataOverviewView: View {
                 }
             }
             .padding(.horizontal, 30)
-            ZStack {
-                Rectangle().fill(Color.red).frame(height: 250)
-                LineGraph(data: user.trackables[dataIndex]).stroke(.white, lineWidth: 5)
-            }.clipShape(RoundedRectangle(cornerRadius: 15))
-            .padding(.horizontal, 30).frame(height: 250)
+            if !addingEntry {
+                ZStack {
+                    Rectangle().fill(Color.red)
+                    LineGraph(data: user.trackables[dataIndex]).stroke(.white, lineWidth: 5)
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 15))
+                .padding(.horizontal, 30)
+                .frame(height: 220)
+            }
             HStack(spacing: 10) {
                 Button(action: {
                     if addingEntry {
@@ -106,7 +110,9 @@ struct DataOverviewView: View {
                     .frame(width: 50, height: 50)
                 }
             }
+            .padding(.bottom, addingEntry ? 0 : 20)
         }
+        .padding(.vertical, 10)
     }
 }
 

@@ -16,4 +16,8 @@ struct User: Codable {
         trackables[dataIndex].name = name
         trackables[dataIndex].symbol = symbol
     }
+    
+    mutating func removeTrackable(index: Int) {
+        trackables.remove(at: index)
+    }
 }

@@ -19,13 +19,13 @@ struct LineGraph: Shape {
             path.move(to: CGPoint(x: rect.minX, y: rect.midY))
             path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
         } else {
-            let unitHeight: CGFloat = rect.height/CGFloat(maximum - minimum)
+            let unitHeight: CGFloat = rect.height/CGFloat(maximum + minimum)
             let unitWidth: CGFloat = rect.width/CGFloat(data.entries.count - 1)
             
-            path.move(to: CGPoint(x: rect.minX, y: rect.maxY - unitHeight * CGFloat(data.entries[0] - minimum)))
+            path.move(to: CGPoint(x: rect.minX, y: rect.maxY - unitHeight * CGFloat(data.entries[0])))
             
             for index in 1 ..< data.entries.count {
-                path.addLine(to: CGPoint(x: rect.minX + CGFloat(index) * unitWidth, y: rect.maxY - unitHeight * CGFloat(data.entries[index] - minimum)))
+                path.addLine(to: CGPoint(x: rect.minX + CGFloat(index) * unitWidth, y: rect.maxY - unitHeight * CGFloat(data.entries[index])))
             }
         }
         

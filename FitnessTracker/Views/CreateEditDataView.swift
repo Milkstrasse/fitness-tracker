@@ -16,7 +16,7 @@ struct CreateEditDataView: View {
     @State var name: String = ""
     @State var selectIndex: Int = 0
     
-    let symbols: [String] = ["0xf005", "0xf004", "0xf186", "0xf185", "0xf06d", "0xf043", "0xf56b", "0xf06c"]
+    let symbols: [String] = ["0xf005", "0xf004", "0xf186", "0xf043", "0xf5bb", "0xf06d", "0xf06c", "0xf6fc", "0xf54c", "0xf135", "0xf094", "0xf7ec", "0xf02e", "0xf024"]
     
     @State var buttonPressed: Int = -1
     
@@ -36,13 +36,13 @@ struct CreateEditDataView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 10) {
             ZStack {
                 RoundedRectangle(cornerRadius: 15).fill(Color.yellow).frame(height: 55)
                 FocusUIKitTextField(text: $name, isFirstResponder: true, numbersOnly: false)
                 .frame(height: 30)
             }
-            .padding(.bottom, 10).padding(.horizontal, 30)
+            .padding(.top, 20).padding(.horizontal, 30)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 5) {
                     ForEach(symbols.indices, id: \.self) { index in
@@ -87,24 +87,53 @@ struct CreateEditDataView: View {
                 }
             }
             Spacer()
-            Button(action: {
-                if dataIndex == -1 {
-                    user.addTrackable(name: name, symbol: symbols[selectIndex])
-                    manager.setView(view: AnyView(DataOverviewView(user: user, dataIndex: user.trackables.count - 1).environmentObject(manager)))
-                } else {
-                    user.editTrackable(name: name, symbol: symbols[selectIndex], dataIndex: dataIndex)
-                    manager.setView(view: AnyView(DataOverviewView(user: user, dataIndex: dataIndex).environmentObject(manager)))
+            HStack(spacing: 10) {
+                Button(action: {
+                    if dataIndex == -1 {
+                        manager.setView(view: AnyView(MainView(user: user).environmentObject(manager)))
+                    } else {
+                        manager.setView(view: AnyView(DataOverviewView(user: user, dataIndex: dataIndex).environmentObject(manager)))
+                    }
+                }) {
+                    ZStack {
+                        Circle().fill(Color.black)
+                        Text("\u{f00d}").font(.custom("Font Awesome 5 Free", size: 20)).foregroundColor(Color.white)
+                    }
+                    .frame(width: 50, height: 50)
                 }
-                
-                SaveManager.saveUser(user: user)
-            }) {
-                ZStack {
-                    Circle().fill(Color.black)
-                    Text("\u{f00c}").font(.custom("Font Awesome 5 Free", size: 24)).foregroundColor(Color.white)
+                Button(action: {
+                    if dataIndex == -1 {
+                        user.addTrackable(name: name, symbol: symbols[selectIndex])
+                        manager.setView(view: AnyView(DataOverviewView(user: user, dataIndex: user.trackables.count - 1).environmentObject(manager)))
+                    } else {
+                        user.editTrackable(name: name, symbol: symbols[selectIndex], dataIndex: dataIndex)
+                        manager.setView(view: AnyView(DataOverviewView(user: user, dataIndex: dataIndex).environmentObject(manager)))
+                    }
+                    
+                    SaveManager.saveUser(user: user)
+                }) {
+                    ZStack {
+                        Circle().fill(Color.black)
+                        Text("\u{f00c}").font(.custom("Font Awesome 5 Free", size: 24)).foregroundColor(Color.white)
+                    }
+                    .frame(width: 75, height: 75)
                 }
-                .frame(width: 75, height: 75)
+                Button(action: {
+                    user.removeTrackable(index: dataIndex)
+                    manager.setView(view: AnyView(MainView(user: user).environmentObject(manager)))
+                    
+                    SaveManager.saveUser(user: user)
+                }) {
+                    ZStack {
+                        Circle().fill(Color.black)
+                        Text("\u{f2ed}").font(.custom("Font Awesome 5 Free", size: 20)).foregroundColor(Color.white)
+                    }
+                    .frame(width: 50, height: 50)
+                }
+                .disabled(dataIndex == -1)
             }
         }
+        .padding(.vertical, 10)
         .onAppear {
             if dataIndex != -1 {
                 name = user.trackables[dataIndex].name

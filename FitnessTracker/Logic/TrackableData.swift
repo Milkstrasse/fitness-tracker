@@ -84,6 +84,18 @@ struct TrackableData: Codable {
     }
     
     mutating func removeEntry(index: Int) {
-        entries.remove(at: index)
+        if entries[index] == record {
+            record = 0
+            
+            entries.remove(at: index)
+            
+            for entry in entries {
+                if entry > record {
+                    record = entry
+                }
+            }
+        } else {
+            entries.remove(at: index)
+        }
     }
 }
