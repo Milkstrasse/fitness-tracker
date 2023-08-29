@@ -26,15 +26,10 @@ struct MainView: View {
                 }
             }
             .padding(.horizontal, 30)
-            Button(action: {
+            Button("\u{f067}") {
                 manager.setView(view: AnyView(CreateEditDataView(user: user, dataIndex: -1).environmentObject(manager)))
-            }) {
-                ZStack {
-                    Circle().fill(Color.black)
-                    Text("\u{f067}").font(.custom("Font Awesome 5 Free", size: 24)).foregroundColor(Color.white)
-                }
-                .frame(width: 75, height: 75)
             }
+            .buttonStyle(CircleButton(size: 75, fontSize: 24))
         }
         .padding(.vertical, 30)
     }
@@ -42,6 +37,6 @@ struct MainView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(user: User(trackables: []))
+        MainView(user: User(trackables: [TrackableData(name: "Pushups", symbol: "0xf186", entries: [5, 2, 7, 8, 6])]))
     }
 }

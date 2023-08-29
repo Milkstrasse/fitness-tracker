@@ -17,19 +17,20 @@ struct FocusUIKitTextField: UIViewRepresentable {
     let numbersOnly: Bool
     
     func makeUIView(context: UIViewRepresentableContext<FocusUIKitTextField>) -> UITextField {
-        let textField = UITextField(frame: .zero)
+        let textField = TextFieldWithPadding(frame: .zero)
         textField.delegate = context.coordinator
+        textField.font = UIFont(name: "Museo Sans Rounded 900", size: 16)
         
         if numbersOnly {
             textField.keyboardType = .numberPad
             textField.attributedPlaceholder = NSAttributedString(
                 string: "5",
-                attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "MainText")?.withAlphaComponent(0.5) ?? UIColor.red]
             )
         } else {
             textField.attributedPlaceholder = NSAttributedString(
-                string: "Title",
-                attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]
+                string: "TITLE",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "MainText")?.withAlphaComponent(0.5) ?? UIColor.red]
             )
         }
         
@@ -37,7 +38,7 @@ struct FocusUIKitTextField: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<FocusUIKitTextField>) {
-        uiView.text = text
+        uiView.text = text.uppercased()
 
         if isFirstResponder && context.coordinator.didBecomeFirstResponder != true {
             uiView.becomeFirstResponder()
@@ -73,3 +74,24 @@ extension FocusUIKitTextField {
         }
     }
 }
+
+//https://www.advancedswift.com/uitextfield-with-padding-swift/
+class TextFieldWithPadding: UITextField {
+    var textPadding = UIEdgeInsets(
+        top: 0,
+        left: 15,
+        bottom: 0,
+        right: 0
+    )
+
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        let rect = super.textRect(forBounds: bounds)
+        return rect.inset(by: textPadding)
+    }
+
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        let rect = super.editingRect(forBounds: bounds)
+        return rect.inset(by: textPadding)
+    }
+}
+

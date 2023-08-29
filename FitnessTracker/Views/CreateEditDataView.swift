@@ -11,7 +11,7 @@ struct CreateEditDataView: View {
     @EnvironmentObject var manager: ViewManager
     
     @State var user: User
-    let dataIndex: Int
+    @State var dataIndex: Int
     
     @State var name: String = ""
     @State var selectIndex: Int = 0
@@ -38,7 +38,7 @@ struct CreateEditDataView: View {
     var body: some View {
         VStack(spacing: 10) {
             ZStack {
-                RoundedRectangle(cornerRadius: 15).fill(Color.yellow).frame(height: 55)
+                RoundedRectangle(cornerRadius: 15).fill(Color("Main")).frame(height: 55)
                 FocusUIKitTextField(text: $name, isFirstResponder: true, numbersOnly: false)
                 .frame(height: 30)
             }
@@ -50,8 +50,8 @@ struct CreateEditDataView: View {
                             selectIndex = index
                         }) {
                             ZStack {
-                                RoundedRectangle(cornerRadius: 15).fill(selectIndex == index ? Color.pink : Color.yellow)
-                                Text(createSymbol(string: symbols[index])).font(.custom("Font Awesome 5 Free", size: 16)).foregroundColor(Color.white)
+                                RoundedRectangle(cornerRadius: 15).fill(selectIndex == index ? Color("MainText") : Color("Main"))
+                                Text(createSymbol(string: symbols[index])).font(.custom("Font Awesome 5 Pro", size: 16)).foregroundColor(selectIndex == index ? Color("Main") : Color("MainText"))
                             }
                             .frame(width: 45, height: 45)
                         }
@@ -65,7 +65,7 @@ struct CreateEditDataView: View {
                         VStack(spacing: 5) {
                             ForEach(user.trackables[dataIndex].entries.indices.reversed(), id: \.self) { index in
                                 ZStack(alignment: .trailing) {
-                                    EntryView(entry: user.trackables[dataIndex].entries[index], isPressed: buttonPressed == index)
+                                    EntryView(entry: user.trackables[dataIndex].entries[index], isPressed: buttonPressed == index, showButton: true)
                                     Button(action: {
                                         user.trackables[dataIndex].removeEntry(index: index)
                                     }) {
@@ -85,23 +85,19 @@ struct CreateEditDataView: View {
                         .padding(.horizontal, 30)
                     }
                 }
+            } else {
+                Spacer()
             }
-            Spacer()
             HStack(spacing: 10) {
-                Button(action: {
+                Button("\u{f00d}") {
                     if dataIndex == -1 {
                         manager.setView(view: AnyView(MainView(user: user).environmentObject(manager)))
                     } else {
                         manager.setView(view: AnyView(DataOverviewView(user: user, dataIndex: dataIndex).environmentObject(manager)))
                     }
-                }) {
-                    ZStack {
-                        Circle().fill(Color.black)
-                        Text("\u{f00d}").font(.custom("Font Awesome 5 Free", size: 20)).foregroundColor(Color.white)
-                    }
-                    .frame(width: 50, height: 50)
                 }
-                Button(action: {
+                .buttonStyle(CircleButton(size: 50, fontSize: 16))
+                Button("\u{f00c}") {
                     if dataIndex == -1 {
                         user.addTrackable(name: name, symbol: symbols[selectIndex])
                         manager.setView(view: AnyView(DataOverviewView(user: user, dataIndex: user.trackables.count - 1).environmentObject(manager)))
@@ -111,26 +107,18 @@ struct CreateEditDataView: View {
                     }
                     
                     SaveManager.saveUser(user: user)
-                }) {
-                    ZStack {
-                        Circle().fill(Color.black)
-                        Text("\u{f00c}").font(.custom("Font Awesome 5 Free", size: 24)).foregroundColor(Color.white)
-                    }
-                    .frame(width: 75, height: 75)
                 }
-                Button(action: {
+                .buttonStyle(CircleButton(size: 75, fontSize: 24))
+                Button("\u{f2ed}") {
                     user.removeTrackable(index: dataIndex)
+                    dataIndex = -1
+                    
                     manager.setView(view: AnyView(MainView(user: user).environmentObject(manager)))
                     
                     SaveManager.saveUser(user: user)
-                }) {
-                    ZStack {
-                        Circle().fill(Color.black)
-                        Text("\u{f2ed}").font(.custom("Font Awesome 5 Free", size: 20)).foregroundColor(Color.white)
-                    }
-                    .frame(width: 50, height: 50)
                 }
-                .disabled(dataIndex == -1)
+                .buttonStyle(CircleButton(size: 50, fontSize: 16))
+                .disabled(dataIndex == -1).opacity(dataIndex == -1 ? 0.7 : 1)
             }
         }
         .padding(.vertical, 10)
