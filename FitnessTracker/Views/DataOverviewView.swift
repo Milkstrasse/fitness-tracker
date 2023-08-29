@@ -16,80 +16,102 @@ struct DataOverviewView: View {
     @State var addingEntry: Bool = false
     @State var count: String = ""
     
+    @State var transitionToggle: Bool = false
+    
     var body: some View {
-        VStack(spacing: 10) {
-            ZStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: 15).fill(Color("Main")).frame(height: 55)
-                Text(user.trackables[dataIndex].name.uppercased()).font(.custom("Museo Sans Rounded", size: 16)).fontWeight(.bold).foregroundColor(Color("MainText")).padding(.leading, 15)
-            }
-            .padding(.horizontal, 30).padding(.top, 20)
-            ScrollView(.vertical, showsIndicators: false) {
-                ScrollViewReader { value in
-                    VStack(spacing: 5) {
-                        if addingEntry {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 15).fill(Color("Main")).frame(height: 45)
-                                FocusUIKitTextField(text: $count, isFirstResponder: true, numbersOnly: true)
-                                .frame(height: 30)
-                            }.id(0)
-                            .onAppear {
-                                value.scrollTo(0)
+        GeometryReader { geometry in
+            VStack(spacing: 10) {
+                ZStack(alignment: .leading) {
+                    RoundedRectangle(cornerRadius: 15).fill(Color("Main")).frame(height: 55)
+                    HStack(spacing: 0) {
+                        Text(user.trackables[dataIndex].name.uppercased()).font(.custom("Museo Sans Rounded", size: 16)).fontWeight(.bold).foregroundColor(Color("MainText")).frame(width: geometry.size.width - 225).lineLimit(1).padding(.leading, 15)
+                        HStack(spacing: 0) {
+                            Text("PB:").font(.custom("Museo Sans Rounded", size: 16)).foregroundColor(Color("MainText"))
+                            Text("\(user.trackables[dataIndex].record)").font(.custom("Museo Sans Rounded", size: 16)).foregroundColor(Color("MainText"))
+                            Spacer()
+                        }
+                        .frame(width: 75)
+                        HStack(spacing: 0) {
+                            Text("AVG:").font(.custom("Museo Sans Rounded", size: 16)).foregroundColor(Color.white)
+                            Text("\(user.trackables[dataIndex].getAverage())").font(.custom("Museo Sans Rounded", size: 16)).foregroundColor(Color("MainText"))
+                            Spacer()
+                        }
+                        .frame(width: 75)
+                    }
+                }
+                .padding(.horizontal, 30).padding(.top, 20)
+                ScrollView(.vertical, showsIndicators: false) {
+                    ScrollViewReader { value in
+                        VStack(spacing: 5) {
+                            if addingEntry {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 15).fill(Color("Main")).frame(height: 45)
+                                    FocusTextField(text: $count, isFirstResponder: true, numbersOnly: true).frame(width: geometry.size.width - 90, height: 30, alignment: .leading).clipped()
+                                    .frame(height: 30)
+                                }.id(0)
+                                .onAppear {
+                                    value.scrollTo(0)
+                                }
+                            }
+                            ForEach(user.trackables[dataIndex].entries.indices.reversed(), id: \.self) { index in
+                                EntryView(entry: user.trackables[dataIndex].entries[index], isPressed: false, showButton: false)
+                                    .opacity(transitionToggle ? 1 : 0).animation(.linear(duration: 0.1).delay(Double(user.trackables[dataIndex].entries.count - index - 1)/10), value: transitionToggle)
                             }
                         }
-                        ForEach(user.trackables[dataIndex].entries.indices.reversed(), id: \.self) { index in
-                            EntryView(entry: user.trackables[dataIndex].entries[index], isPressed: false, showButton: false)
-                        }
                     }
                 }
-            }
-            .padding(.horizontal, 30)
-            if !addingEntry {
-                ZStack {
-                    Rectangle().fill(Color("Main"))
-                    LineGraph(data: user.trackables[dataIndex]).stroke(Color("MainText"), lineWidth: 5)
-                }
-                .clipShape(RoundedRectangle(cornerRadius: 15))
                 .padding(.horizontal, 30)
-                .frame(height: 220)
-            }
-            HStack(spacing: 10) {
-                Button("\u{f00d}") {
-                    if addingEntry {
-                        addingEntry = false
-                        count = ""
-                    } else {
-                        manager.setView(view: AnyView(MainView(user: user).environmentObject(manager)))
+                if !addingEntry {
+                    ZStack {
+                        Rectangle().fill(Color("Main"))
+                        LineGraph(data: user.trackables[dataIndex]).stroke(Color("MainText"), lineWidth: 5)
                     }
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .padding(.horizontal, 30)
+                    .frame(height: 220)
                 }
-                .buttonStyle(CircleButton(size: 50, fontSize: 16))
-                ZStack {
-                    if addingEntry {
-                        Button("\u{f00c}") {
+                HStack(spacing: 10) {
+                    Button("\u{f00d}") {
+                        if addingEntry {
                             addingEntry = false
-                            user.trackables[dataIndex].addEntry(text: count)
-                            
-                            SaveManager.saveUser(user: user)
-                            
                             count = ""
+                        } else {
+                            manager.setView(view: AnyView(MainView(user: user).environmentObject(manager)))
                         }
-                        .buttonStyle(CircleButton(size: 75, fontSize: 24))
-                        .disabled(!count.isNumber).opacity(count.isNumber ? 1 : 0.7)
-                    } else {
-                        Button("\u{f067}") {
-                            addingEntry = true
-                        }
-                        .buttonStyle(CircleButton(size: 75, fontSize: 24))
-                        .disabled(user.trackables[dataIndex].entries.count > 30).opacity(user.trackables[dataIndex].entries.count > 30 ? 0.7 : 1)
                     }
+                    .buttonStyle(CircleButton(size: 50, fontSize: 16))
+                    ZStack {
+                        if addingEntry {
+                            Button("\u{f00c}") {
+                                addingEntry = false
+                                user.trackables[dataIndex].addEntry(text: count)
+                                
+                                SaveManager.saveUser(user: user)
+                                
+                                count = ""
+                            }
+                            .buttonStyle(CircleButton(size: 75, fontSize: 24))
+                            .disabled(!count.isNumber).opacity(count.isNumber ? 1 : 0.7)
+                        } else {
+                            Button("\u{f067}") {
+                                addingEntry = true
+                            }
+                            .buttonStyle(CircleButton(size: 75, fontSize: 24))
+                            .disabled(user.trackables[dataIndex].entries.count > 30).opacity(user.trackables[dataIndex].entries.count > 30 ? 0.7 : 1)
+                        }
+                    }
+                    Button("\u{f304}") {
+                        manager.setView(view: AnyView(CreateEditDataView(user: user, dataIndex: dataIndex).environmentObject(manager)))
+                    }
+                    .buttonStyle(CircleButton(size: 50, fontSize: 16))
                 }
-                Button("\u{f304}") {
-                    manager.setView(view: AnyView(CreateEditDataView(user: user, dataIndex: dataIndex).environmentObject(manager)))
-                }
-                .buttonStyle(CircleButton(size: 50, fontSize: 16))
+                .padding(.bottom, addingEntry ? 0 : 20)
             }
-            .padding(.bottom, addingEntry ? 0 : 20)
+            .padding(.vertical, 10)
+            .onAppear {
+                transitionToggle = true
+            }
         }
-        .padding(.vertical, 10)
     }
 }
 

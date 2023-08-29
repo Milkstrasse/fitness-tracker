@@ -26,6 +26,21 @@ struct FitnessTrackerApp: App {
     @StateObject var manager: ViewManager = ViewManager()
     @State var isLoading: Bool = true
     
+    @State var blink: String = ""
+    
+    func blink(delay: TimeInterval) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            blink = "_blink"
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                blink = ""
+                
+                let blinkInterval: Int = Int.random(in: 5 ... 10)
+                blink(delay: TimeInterval(blinkInterval))
+            }
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
             ZStack() {
@@ -45,7 +60,7 @@ struct FitnessTrackerApp: App {
                         HStack(spacing: 0) {
                             ZStack {
                                 LinearGradient(gradient: Gradient(colors: [Color("GradientStart"), Color("GradientEnd")]), startPoint: .top, endPoint: .bottom)
-                                Image("avatar").resizable().scaleEffect(2).offset(x: 10, y: -8)
+                                Image("avatar" + blink).resizable().scaleEffect(2).offset(x: 10, y: -8)
                             }
                             .frame(width: 60, height: 60).clipShape(RoundedRectangle(cornerRadius: 15))
                             Triangle().fill(Color("Challenge")).frame(width: 10, height: 15).padding(.leading, 5)
@@ -61,6 +76,10 @@ struct FitnessTrackerApp: App {
                         }
                         .padding(.all, 30)
                         manager.getCurrentView()
+                    }
+                    .onAppear {
+                        let blinkInterval: Int = Int.random(in: 5 ... 10)
+                        blink(delay: TimeInterval(blinkInterval))
                     }
                 }
             }

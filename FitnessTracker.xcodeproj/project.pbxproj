@@ -15,7 +15,7 @@
 		B8EE4C592A9BA280005331A9 /* TrackableDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C582A9BA280005331A9 /* TrackableDataView.swift */; };
 		B8EE4C612A9BADD2005331A9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C602A9BADD2005331A9 /* User.swift */; };
 		B8EE4C632A9BB1AC005331A9 /* CreateEditDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C622A9BB1AC005331A9 /* CreateEditDataView.swift */; };
-		B8EE4C652A9BCF55005331A9 /* FocusSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C642A9BCF55005331A9 /* FocusSystem.swift */; };
+		B8EE4C652A9BCF55005331A9 /* FocusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C642A9BCF55005331A9 /* FocusTextField.swift */; };
 		B8EE4C672A9BD8D5005331A9 /* DataOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C662A9BD8D5005331A9 /* DataOverviewView.swift */; };
 		B8EE4C692A9BE219005331A9 /* LineGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C682A9BE219005331A9 /* LineGraph.swift */; };
 		B8EE4C6F2A9C9791005331A9 /* SaveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C6E2A9C9791005331A9 /* SaveManager.swift */; };
@@ -38,7 +38,7 @@
 		B8EE4C5E2A9BA75F005331A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B8EE4C602A9BADD2005331A9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B8EE4C622A9BB1AC005331A9 /* CreateEditDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditDataView.swift; sourceTree = "<group>"; };
-		B8EE4C642A9BCF55005331A9 /* FocusSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusSystem.swift; sourceTree = "<group>"; };
+		B8EE4C642A9BCF55005331A9 /* FocusTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTextField.swift; sourceTree = "<group>"; };
 		B8EE4C662A9BD8D5005331A9 /* DataOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataOverviewView.swift; sourceTree = "<group>"; };
 		B8EE4C682A9BE219005331A9 /* LineGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineGraph.swift; sourceTree = "<group>"; };
 		B8EE4C6E2A9C9791005331A9 /* SaveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveManager.swift; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 				B8EE4C622A9BB1AC005331A9 /* CreateEditDataView.swift */,
 				B8EE4C662A9BD8D5005331A9 /* DataOverviewView.swift */,
 				B8EE4C702A9CCFA5005331A9 /* EntryView.swift */,
-				B8EE4C642A9BCF55005331A9 /* FocusSystem.swift */,
+				B8EE4C642A9BCF55005331A9 /* FocusTextField.swift */,
 				B8EE4C682A9BE219005331A9 /* LineGraph.swift */,
 				B8EE4C492A9B9D1C005331A9 /* MainView.swift */,
 				B8EE4C582A9BA280005331A9 /* TrackableDataView.swift */,
@@ -208,7 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8EE4C652A9BCF55005331A9 /* FocusSystem.swift in Sources */,
+				B8EE4C652A9BCF55005331A9 /* FocusTextField.swift in Sources */,
 				B8EE4C592A9BA280005331A9 /* TrackableDataView.swift in Sources */,
 				B8EE4C562A9BA079005331A9 /* TrackableData.swift in Sources */,
 				B8EE4C7B2A9E5D3A005331A9 /* Triangle.swift in Sources */,

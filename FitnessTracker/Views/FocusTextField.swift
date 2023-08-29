@@ -1,5 +1,5 @@
 //
-//  FocusSystem.swift
+//  FocusTextField.swift
 //  FitnessTracker
 //
 //  Created by Janice Hablützel on 27.08.23.
@@ -10,14 +10,14 @@ import SwiftUI
 import UIKit
 
 //https://www.vbutko.com/articles/how-to-manage-swiftui-focus-state-in-ios14-and-before/
-struct FocusUIKitTextField: UIViewRepresentable {
+struct FocusTextField: UIViewRepresentable {
     @Binding var text: String
 
     var isFirstResponder: Bool = false
     let numbersOnly: Bool
     
-    func makeUIView(context: UIViewRepresentableContext<FocusUIKitTextField>) -> UITextField {
-        let textField = TextFieldWithPadding(frame: .zero)
+    func makeUIView(context: UIViewRepresentableContext<FocusTextField>) -> UITextField {
+        let textField = UITextField(frame: .zero)
         textField.delegate = context.coordinator
         textField.font = UIFont(name: "Museo Sans Rounded 900", size: 16)
         
@@ -37,7 +37,7 @@ struct FocusUIKitTextField: UIViewRepresentable {
         return textField
     }
     
-    func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<FocusUIKitTextField>) {
+    func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<FocusTextField>) {
         uiView.text = text.uppercased()
 
         if isFirstResponder && context.coordinator.didBecomeFirstResponder != true {
@@ -51,12 +51,12 @@ struct FocusUIKitTextField: UIViewRepresentable {
         }
     }
     
-    func makeCoordinator() -> FocusUIKitTextField.Coordinator {
+    func makeCoordinator() -> FocusTextField.Coordinator {
         return Coordinator(text: $text)
     }
 }
 
-extension FocusUIKitTextField {
+extension FocusTextField {
     class Coordinator: NSObject, UITextFieldDelegate {
         
         @Binding var text: String
@@ -74,24 +74,3 @@ extension FocusUIKitTextField {
         }
     }
 }
-
-//https://www.advancedswift.com/uitextfield-with-padding-swift/
-class TextFieldWithPadding: UITextField {
-    var textPadding = UIEdgeInsets(
-        top: 0,
-        left: 15,
-        bottom: 0,
-        right: 0
-    )
-
-    override func textRect(forBounds bounds: CGRect) -> CGRect {
-        let rect = super.textRect(forBounds: bounds)
-        return rect.inset(by: textPadding)
-    }
-
-    override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        let rect = super.editingRect(forBounds: bounds)
-        return rect.inset(by: textPadding)
-    }
-}
-

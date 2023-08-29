@@ -12,26 +12,34 @@ struct MainView: View {
     
     let user: User
     
+    @State var transitionToggle: Bool = false
+    
     var body: some View {
-        VStack(spacing: 0) {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 10) {
-                    ForEach(user.trackables.indices, id: \.self) { index in
-                        Button(action: {
-                            manager.setView(view: AnyView(DataOverviewView(user: user, dataIndex: index).environmentObject(manager)))
-                        }) {
-                            TrackableDataView(data: user.trackables[index])
+        GeometryReader { geometry in
+            VStack(spacing: 0) {
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 10) {
+                        ForEach(user.trackables.indices, id: \.self) { index in
+                            Button(action: {
+                                manager.setView(view: AnyView(DataOverviewView(user: user, dataIndex: index).environmentObject(manager)))
+                            }) {
+                                TrackableDataView(data: user.trackables[index], maxWidth: geometry.size.width)
+                                    .opacity(transitionToggle ? 1 : 0).animation(.linear(duration: 0.1).delay(Double(index)/10), value: transitionToggle)
+                            }
                         }
                     }
                 }
+                .padding(.horizontal, 30)
+                Button("\u{f067}") {
+                    manager.setView(view: AnyView(CreateEditDataView(user: user, dataIndex: -1).environmentObject(manager)))
+                }
+                .buttonStyle(CircleButton(size: 75, fontSize: 24))
             }
-            .padding(.horizontal, 30)
-            Button("\u{f067}") {
-                manager.setView(view: AnyView(CreateEditDataView(user: user, dataIndex: -1).environmentObject(manager)))
+            .padding(.vertical, 30)
+            .onAppear {
+                transitionToggle = true
             }
-            .buttonStyle(CircleButton(size: 75, fontSize: 24))
         }
-        .padding(.vertical, 30)
     }
 }
 
