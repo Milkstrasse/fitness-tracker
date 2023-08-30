@@ -25,7 +25,7 @@ struct LineGraph: Shape {
             path.move(to: CGPoint(x: rect.minX, y: rect.maxY - unitHeight * CGFloat(data.entries[0])))
             
             for index in 1 ..< data.entries.count {
-                path.addLine(to: CGPoint(x: rect.minX + CGFloat(index) * unitWidth, y: rect.maxY - unitHeight * CGFloat(data.entries[index])))
+                path.addCurve(to: CGPoint(x: rect.minX + CGFloat(index) * unitWidth, y: rect.maxY - unitHeight * CGFloat(data.entries[index])), control1: CGPoint(x: rect.minX + CGFloat(index - 1) * unitWidth + unitWidth * 0.5, y: rect.maxY - unitHeight * CGFloat(data.entries[index - 1])), control2: CGPoint(x: rect.minX + CGFloat(index - 1) * unitWidth + unitWidth * 0.5, y: rect.maxY - unitHeight * CGFloat(data.entries[index])))
             }
         }
         
