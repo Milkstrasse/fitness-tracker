@@ -67,6 +67,7 @@ struct DataOverviewView: View {
                     ZStack {
                         Rectangle().fill(Color("Main"))
                         LineGraph(data: user.trackables[dataIndex]).stroke(Color("MainText"), lineWidth: 5)
+                            .padding(.vertical, user.trackables[dataIndex].getMinimum() == 0 ? 10 : 0)
                     }
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .padding(.horizontal, 30)
