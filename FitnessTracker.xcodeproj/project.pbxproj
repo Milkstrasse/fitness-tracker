@@ -27,6 +27,7 @@
 		B8EE4C7D2A9E61FD005331A9 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C7C2A9E61FD005331A9 /* CircleButton.swift */; };
 		B8EE4C812A9E841D005331A9 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C802A9E841D005331A9 /* Challenge.swift */; };
 		B8EE4C832A9E897F005331A9 /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C822A9E897F005331A9 /* ChallengeView.swift */; };
+		B8EE4C862A9F3E4A005331A9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8EE4C882A9F3E4A005331A9 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,8 @@
 		B8EE4C7C2A9E61FD005331A9 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		B8EE4C802A9E841D005331A9 /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
 		B8EE4C822A9E897F005331A9 /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
+		B8EE4C872A9F3E4A005331A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8EE4C892A9F4277005331A9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +121,7 @@
 				B8EE4C742A9E4344005331A9 /* Font Awesome 5 Pro-Regular-400.otf */,
 				B8EE4C762A9E4B60005331A9 /* MuseoSansRounded500.otf */,
 				B8EE4C772A9E4B60005331A9 /* MuseoSansRounded900.otf */,
+				B8EE4C882A9F3E4A005331A9 /* Localizable.strings */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -199,6 +203,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = B8EE4C3B2A9B9D1C005331A9;
 			productRefGroup = B8EE4C452A9B9D1C005331A9 /* Products */;
@@ -216,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8EE4C4F2A9B9D1E005331A9 /* Preview Assets.xcassets in Resources */,
+				B8EE4C862A9F3E4A005331A9 /* Localizable.strings in Resources */,
 				B8EE4C4C2A9B9D1E005331A9 /* Assets.xcassets in Resources */,
 				B8EE4C782A9E4B60005331A9 /* MuseoSansRounded500.otf in Resources */,
 				B8EE4C752A9E4345005331A9 /* Font Awesome 5 Pro-Regular-400.otf in Resources */,
@@ -250,11 +256,24 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		B8EE4C882A9F3E4A005331A9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B8EE4C872A9F3E4A005331A9 /* en */,
+				B8EE4C892A9F4277005331A9 /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		B8EE4C502A9B9D1E005331A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -315,6 +334,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

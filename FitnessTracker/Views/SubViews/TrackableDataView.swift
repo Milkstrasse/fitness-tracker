@@ -25,14 +25,16 @@ struct TrackableDataView: View {
                     Text(data.name.uppercased()).font(.custom("Museo Sans Rounded", size: 16)).fontWeight(.bold).foregroundColor(Color.white).frame(width: maxWidth - 180, alignment: .leading).lineLimit(1)
                     HStack(spacing: 0) {
                         HStack(spacing: 0) {
-                            Text("PB:").font(.custom("Museo Sans Rounded", size: 16)).foregroundColor(Color("MainText"))
-                            Text("\(data.record)").font(.custom("Museo Sans Rounded", size: 16)).foregroundColor(Color("MainText"))
+                            Text("record").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
+                            Text(":").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
+                            Text("\(data.record)").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
                             Spacer()
                         }
                         .frame(width: 75)
                         HStack(spacing: 0) {
-                            Text("AVG:").font(.custom("Museo Sans Rounded", size: 16)).foregroundColor(Color.white)
-                            Text("\(data.getAverage())").font(.custom("Museo Sans Rounded", size: 16)).foregroundColor(Color("MainText"))
+                            Text("average").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
+                            Text(":").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
+                            Text("\(data.getAverage())").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
                             Spacer()
                         }
                         .frame(width: 75)

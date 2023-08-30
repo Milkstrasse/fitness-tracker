@@ -37,8 +37,8 @@ struct ChallengeView: View {
                 RoundedRectangle(cornerRadius: 15).fill(Color("Challenge"))
                 HStack(spacing: 0) {
                     VStack(alignment: .leading) {
-                        Text("Challenge".uppercased()).font(.custom("Museo Sans Rounded", size: 16)).fontWeight(.bold).foregroundColor(Color("MainText"))
-                        Text(user.challenges[user.currChallenge].title).font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("ChallengeText"))
+                        Text("challenge").font(.custom("Museo Sans Rounded", size: 16)).fontWeight(.bold).foregroundColor(Color("MainText"))
+                        Text(LocalizedStringKey(user.challenges[user.currChallenge].title)).font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("ChallengeText"))
                     }
                     .padding(.leading, 15)
                     Spacer()

@@ -48,9 +48,9 @@ struct User: Codable {
     }
     
     mutating func generateChallenges() {
-        challenges.append(Challenge(title: "add new category", requirement: NSPredicate(format: "%K >= %@", "newCategoryAdded", NSNumber(value: true)), isCompleted: false))
-        challenges.append(Challenge(title: "add 5 entries", requirement: NSPredicate(format: "%K >= %@", "entriesAdded", NSNumber(value: 5)), isCompleted: false))
-        challenges.append(Challenge(title: "new personal best", requirement: NSPredicate(format: "%K >= %@", "newPersonalBest", NSNumber(value: true)), isCompleted: false))
+        challenges.append(Challenge(title: "addCategory", requirement: NSPredicate(format: "%K >= %@", "newCategoryAdded", NSNumber(value: true)), isCompleted: false))
+        challenges.append(Challenge(title: "addEntries \(5)", requirement: NSPredicate(format: "%K >= %@", "entriesAdded", NSNumber(value: 5)), isCompleted: false))
+        challenges.append(Challenge(title: "achieveRecord", requirement: NSPredicate(format: "%K >= %@", "newPersonalBest", NSNumber(value: true)), isCompleted: false))
     }
     
     mutating func addTrackable(name: String, symbol: String) {

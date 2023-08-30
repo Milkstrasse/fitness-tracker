@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  FitnessTracker
+
+  Created by Janice Hablützel on 30.08.23.
+  
+*/
+
+"challenge" = "CHALLENGE";
+"record" = "PB";
+"average" = "AVG";
+
+"addCategory" = "Add new CATEGORY";
+"achieveRecord" = "Achieve new PERSONAL BEST";
+"addEntries %d" = "Add %d ENTRIES";
