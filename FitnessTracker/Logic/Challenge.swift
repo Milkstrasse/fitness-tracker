@@ -9,7 +9,7 @@ import Foundation
 
 struct Challenge {
     let title: String
-    let requirement: NSPredicate
+    private let requirement: NSPredicate
     var isCompleted: Bool
     
     init(title: String, requirement: NSPredicate, isCompleted: Bool) {

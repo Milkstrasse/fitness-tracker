@@ -26,14 +26,14 @@ struct TrackableDataView: View {
                     HStack(spacing: 0) {
                         HStack(spacing: 0) {
                             Text("record").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
-                            Text(":").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
+                            Text(": ").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
                             Text("\(data.record)").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
                             Spacer()
                         }
                         .frame(width: 75)
                         HStack(spacing: 0) {
                             Text("average").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
-                            Text(":").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
+                            Text(": ").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
                             Text("\(data.getAverage())").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
                             Spacer()
                         }

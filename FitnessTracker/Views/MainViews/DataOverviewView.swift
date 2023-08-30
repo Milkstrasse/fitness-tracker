@@ -27,14 +27,14 @@ struct DataOverviewView: View {
                         Text(user.trackables[dataIndex].name.uppercased()).font(.custom("Museo Sans Rounded", size: 16)).fontWeight(.bold).foregroundColor(Color("MainText")).frame(width: geometry.size.width - 225, alignment: .leading).lineLimit(1).padding(.leading, 15)
                         HStack(spacing: 0) {
                             Text("record").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
-                            Text(":").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
+                            Text(": ").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
                             Text("\(user.trackables[dataIndex].record)").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
                             Spacer()
                         }
                         .frame(width: 75)
                         HStack(spacing: 0) {
                             Text("average").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
-                            Text(":").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
+                            Text(": ").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
                             Text("\(user.trackables[dataIndex].getAverage())").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))
                             Spacer()
                         }
