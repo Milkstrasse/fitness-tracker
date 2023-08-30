@@ -10,7 +10,7 @@ import SwiftUI
 struct DataOverviewView: View {
     @EnvironmentObject var manager: ViewManager
     
-    @State var user: User
+    @Binding var user: User
     let dataIndex: Int
     
     @State var addingEntry: Bool = false
@@ -24,7 +24,7 @@ struct DataOverviewView: View {
                 ZStack(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 15).fill(Color("Main")).frame(height: 55)
                     HStack(spacing: 0) {
-                        Text(user.trackables[dataIndex].name.uppercased()).font(.custom("Museo Sans Rounded", size: 16)).fontWeight(.bold).foregroundColor(Color("MainText")).frame(width: geometry.size.width - 225).lineLimit(1).padding(.leading, 15)
+                        Text(user.trackables[dataIndex].name.uppercased()).font(.custom("Museo Sans Rounded", size: 16)).fontWeight(.bold).foregroundColor(Color("MainText")).frame(width: geometry.size.width - 225, alignment: .leading).lineLimit(1).padding(.leading, 15)
                         HStack(spacing: 0) {
                             Text("PB:").font(.custom("Museo Sans Rounded", size: 16)).foregroundColor(Color("MainText"))
                             Text("\(user.trackables[dataIndex].record)").font(.custom("Museo Sans Rounded", size: 16)).foregroundColor(Color("MainText"))
@@ -76,7 +76,7 @@ struct DataOverviewView: View {
                             addingEntry = false
                             count = ""
                         } else {
-                            manager.setView(view: AnyView(MainView(user: user).environmentObject(manager)))
+                            manager.setView(view: AnyView(MainView(user: $user).environmentObject(manager)))
                         }
                     }
                     .buttonStyle(CircleButton(size: 50, fontSize: 16))
@@ -84,7 +84,15 @@ struct DataOverviewView: View {
                         if addingEntry {
                             Button("\u{f00c}") {
                                 addingEntry = false
-                                user.trackables[dataIndex].addEntry(text: count)
+                                let result: Int = user.trackables[dataIndex].addEntry(text: count)
+                                if result > 0 {
+                                    if result > 1 {
+                                        user.data.newPersonalBest = true
+                                    }
+                                    
+                                    user.data.entriesAdded += 1
+                                    user.checkChallenge()
+                                }
                                 
                                 SaveManager.saveUser(user: user)
                                 
@@ -101,7 +109,7 @@ struct DataOverviewView: View {
                         }
                     }
                     Button("\u{f304}") {
-                        manager.setView(view: AnyView(CreateEditDataView(user: user, dataIndex: dataIndex).environmentObject(manager)))
+                        manager.setView(view: AnyView(CreateEditDataView(user: $user, dataIndex: dataIndex).environmentObject(manager)))
                     }
                     .buttonStyle(CircleButton(size: 50, fontSize: 16))
                 }
@@ -117,7 +125,7 @@ struct DataOverviewView: View {
 
 struct DataOverviewView_Previews: PreviewProvider {
     static var previews: some View {
-        DataOverviewView(user: User(trackables: [TrackableData(name: "Pushups", symbol: "0xf186", entries: [5, 2, 7, 8, 6])]), dataIndex: 0)
+        DataOverviewView(user: Binding.constant(User(trackables: [TrackableData(name: "Pushups", symbol: "0xf186", entries: [5, 2, 7, 8, 6])], data: UserData())), dataIndex: 0)
     }
 }
 

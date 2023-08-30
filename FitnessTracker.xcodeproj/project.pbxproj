@@ -25,6 +25,8 @@
 		B8EE4C792A9E4B60005331A9 /* MuseoSansRounded900.otf in Resources */ = {isa = PBXBuildFile; fileRef = B8EE4C772A9E4B60005331A9 /* MuseoSansRounded900.otf */; };
 		B8EE4C7B2A9E5D3A005331A9 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C7A2A9E5D3A005331A9 /* Triangle.swift */; };
 		B8EE4C7D2A9E61FD005331A9 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C7C2A9E61FD005331A9 /* CircleButton.swift */; };
+		B8EE4C812A9E841D005331A9 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C802A9E841D005331A9 /* Challenge.swift */; };
+		B8EE4C832A9E897F005331A9 /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EE4C822A9E897F005331A9 /* ChallengeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		B8EE4C772A9E4B60005331A9 /* MuseoSansRounded900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MuseoSansRounded900.otf; sourceTree = "<group>"; };
 		B8EE4C7A2A9E5D3A005331A9 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		B8EE4C7C2A9E61FD005331A9 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		B8EE4C802A9E841D005331A9 /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
+		B8EE4C822A9E897F005331A9 /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,15 +105,8 @@
 		B8EE4C5A2A9BA612005331A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B8EE4C7C2A9E61FD005331A9 /* CircleButton.swift */,
-				B8EE4C622A9BB1AC005331A9 /* CreateEditDataView.swift */,
-				B8EE4C662A9BD8D5005331A9 /* DataOverviewView.swift */,
-				B8EE4C702A9CCFA5005331A9 /* EntryView.swift */,
-				B8EE4C642A9BCF55005331A9 /* FocusTextField.swift */,
-				B8EE4C682A9BE219005331A9 /* LineGraph.swift */,
-				B8EE4C492A9B9D1C005331A9 /* MainView.swift */,
-				B8EE4C582A9BA280005331A9 /* TrackableDataView.swift */,
-				B8EE4C7A2A9E5D3A005331A9 /* Triangle.swift */,
+				B8EE4C7F2A9E8341005331A9 /* MainViews */,
+				B8EE4C7E2A9E831F005331A9 /* SubViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -128,11 +125,36 @@
 		B8EE4C5F2A9BAD8F005331A9 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				B8EE4C802A9E841D005331A9 /* Challenge.swift */,
 				B8EE4C6E2A9C9791005331A9 /* SaveManager.swift */,
 				B8EE4C552A9BA079005331A9 /* TrackableData.swift */,
 				B8EE4C602A9BADD2005331A9 /* User.swift */,
 			);
 			path = Logic;
+			sourceTree = "<group>";
+		};
+		B8EE4C7E2A9E831F005331A9 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				B8EE4C822A9E897F005331A9 /* ChallengeView.swift */,
+				B8EE4C7C2A9E61FD005331A9 /* CircleButton.swift */,
+				B8EE4C702A9CCFA5005331A9 /* EntryView.swift */,
+				B8EE4C642A9BCF55005331A9 /* FocusTextField.swift */,
+				B8EE4C682A9BE219005331A9 /* LineGraph.swift */,
+				B8EE4C582A9BA280005331A9 /* TrackableDataView.swift */,
+				B8EE4C7A2A9E5D3A005331A9 /* Triangle.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		B8EE4C7F2A9E8341005331A9 /* MainViews */ = {
+			isa = PBXGroup;
+			children = (
+				B8EE4C622A9BB1AC005331A9 /* CreateEditDataView.swift */,
+				B8EE4C662A9BD8D5005331A9 /* DataOverviewView.swift */,
+				B8EE4C492A9B9D1C005331A9 /* MainView.swift */,
+			);
+			path = MainViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +237,8 @@
 				B8EE4C4A2A9B9D1C005331A9 /* MainView.swift in Sources */,
 				B8EE4C7D2A9E61FD005331A9 /* CircleButton.swift in Sources */,
 				B8EE4C6F2A9C9791005331A9 /* SaveManager.swift in Sources */,
+				B8EE4C812A9E841D005331A9 /* Challenge.swift in Sources */,
+				B8EE4C832A9E897F005331A9 /* ChallengeView.swift in Sources */,
 				B8EE4C612A9BADD2005331A9 /* User.swift in Sources */,
 				B8EE4C672A9BD8D5005331A9 /* DataOverviewView.swift in Sources */,
 				B8EE4C632A9BB1AC005331A9 /* CreateEditDataView.swift in Sources */,

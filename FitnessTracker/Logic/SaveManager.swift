@@ -17,7 +17,7 @@ struct SaveManager {
                 
                 return user
             } catch {
-                let user: User = User(trackables: [])
+                let user: User = User(trackables: [], data: UserData())
                 saveUser(user: user)
                 
                 print("\(error)")
@@ -25,7 +25,7 @@ struct SaveManager {
                 return user
             }
         } else {
-            let user: User = User(trackables: [])
+            let user: User = User(trackables: [], data: UserData())
             saveUser(user: user)
             
             return user

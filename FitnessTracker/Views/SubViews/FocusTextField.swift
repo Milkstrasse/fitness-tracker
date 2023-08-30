@@ -19,15 +19,16 @@ struct FocusTextField: UIViewRepresentable {
     func makeUIView(context: UIViewRepresentableContext<FocusTextField>) -> UITextField {
         let textField = UITextField(frame: .zero)
         textField.delegate = context.coordinator
-        textField.font = UIFont(name: "Museo Sans Rounded 900", size: 16)
         
         if numbersOnly {
             textField.keyboardType = .numberPad
+            textField.font = UIFont(name: "Museo Sans Rounded 500", size: 16)
             textField.attributedPlaceholder = NSAttributedString(
                 string: "5",
                 attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "MainText")?.withAlphaComponent(0.5) ?? UIColor.red]
             )
         } else {
+            textField.font = UIFont(name: "Museo Sans Rounded 900", size: 16)
             textField.attributedPlaceholder = NSAttributedString(
                 string: "TITLE",
                 attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "MainText")?.withAlphaComponent(0.5) ?? UIColor.red]

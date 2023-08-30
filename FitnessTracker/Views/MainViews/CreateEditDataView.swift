@@ -10,7 +10,7 @@ import SwiftUI
 struct CreateEditDataView: View {
     @EnvironmentObject var manager: ViewManager
     
-    @State var user: User
+    @Binding var user: User
     @State var dataIndex: Int
     
     @State var name: String = ""
@@ -95,19 +95,22 @@ struct CreateEditDataView: View {
                 HStack(spacing: 10) {
                     Button("\u{f00d}") {
                         if dataIndex == -1 {
-                            manager.setView(view: AnyView(MainView(user: user).environmentObject(manager)))
+                            manager.setView(view: AnyView(MainView(user: $user).environmentObject(manager)))
                         } else {
-                            manager.setView(view: AnyView(DataOverviewView(user: user, dataIndex: dataIndex).environmentObject(manager)))
+                            manager.setView(view: AnyView(DataOverviewView(user: $user, dataIndex: dataIndex).environmentObject(manager)))
                         }
                     }
                     .buttonStyle(CircleButton(size: 50, fontSize: 16))
                     Button("\u{f00c}") {
                         if dataIndex == -1 {
                             user.addTrackable(name: name, symbol: symbols[selectIndex])
-                            manager.setView(view: AnyView(DataOverviewView(user: user, dataIndex: user.trackables.count - 1).environmentObject(manager)))
+                            user.data.newCategoryAdded = true
+                            user.checkChallenge()
+                            
+                            manager.setView(view: AnyView(DataOverviewView(user: $user, dataIndex: user.trackables.count - 1).environmentObject(manager)))
                         } else {
                             user.editTrackable(name: name, symbol: symbols[selectIndex], dataIndex: dataIndex)
-                            manager.setView(view: AnyView(DataOverviewView(user: user, dataIndex: dataIndex).environmentObject(manager)))
+                            manager.setView(view: AnyView(DataOverviewView(user: $user, dataIndex: dataIndex).environmentObject(manager)))
                         }
                         
                         SaveManager.saveUser(user: user)
@@ -117,7 +120,7 @@ struct CreateEditDataView: View {
                         user.removeTrackable(index: dataIndex)
                         dataIndex = -1
                         
-                        manager.setView(view: AnyView(MainView(user: user).environmentObject(manager)))
+                        manager.setView(view: AnyView(MainView(user: $user).environmentObject(manager)))
                         
                         SaveManager.saveUser(user: user)
                     }
@@ -140,6 +143,6 @@ struct CreateEditDataView: View {
 
 struct CreateEditDataView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateEditDataView(user: User(trackables: []), dataIndex: -1)
+        CreateEditDataView(user: Binding.constant(User(trackables: [], data: UserData())), dataIndex: -1)
     }
 }

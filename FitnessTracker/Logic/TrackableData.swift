@@ -71,15 +71,21 @@ struct TrackableData: Codable {
         return maximum
     }
     
-    mutating func addEntry(text: String) {
+    mutating func addEntry(text: String) -> Int { //0 = no entry, 1 = new entry, 2 = new entry & new record
         let count: Int = Int(text) ?? 1
         
         if entries.count < 31 {
             if count > record {
                 record = count
+                
+                entries.append(count)
+                return 2
+            } else {
+                entries.append(count)
+                return 1
             }
-            
-            entries.append(count)
+        } else {
+            return 0
         }
     }
     
