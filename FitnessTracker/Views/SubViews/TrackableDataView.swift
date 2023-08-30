@@ -22,7 +22,7 @@ struct TrackableDataView: View {
             HStack(spacing: 0) {
                 Text(createSymbol(string: data.symbol)).font(.custom("Font Awesome 5 Pro", size: 24)).foregroundColor(Color("MainText")).frame(width: 60)
                 VStack(alignment: .leading) {
-                    Text(data.name.uppercased()).font(.custom("Museo Sans Rounded", size: 16)).fontWeight(.bold).foregroundColor(Color.white).frame(width: maxWidth - 180, alignment: .leading).lineLimit(1)
+                    Text(data.name.uppercased()).font(.custom("Museo Sans Rounded", size: 16)).fontWeight(.bold).foregroundColor(Color("MainText")).frame(width: maxWidth - 180, alignment: .leading).lineLimit(1)
                     HStack(spacing: 0) {
                         HStack(spacing: 0) {
                             Text("record").font(.custom("Museo Sans Rounded", size: 12)).foregroundColor(Color("MainText"))

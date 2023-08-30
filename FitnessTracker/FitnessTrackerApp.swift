@@ -8,7 +8,7 @@
 import SwiftUI
 
 class ViewManager: ObservableObject {
-    @Published var currentView: AnyView = AnyView(Color.yellow.ignoresSafeArea())
+    @Published var currentView: AnyView = AnyView(Color("Main").ignoresSafeArea())
     
     func setView(view: AnyView) {
         DispatchQueue.main.async {
@@ -33,7 +33,7 @@ struct FitnessTrackerApp: App {
             ZStack() {
                 Color("Main").ignoresSafeArea()
                 if isLoading {
-                    Color.red.ignoresSafeArea().onAppear {
+                    Color("Main").ignoresSafeArea().onAppear {
                         user = SaveManager.loadUser()
                         
                         DispatchQueue.global().async {
