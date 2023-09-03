@@ -49,7 +49,7 @@ struct User: Codable {
     
     mutating func generateChallenges() {
         challenges.append(Challenge(title: "addCategory", requirement: NSPredicate(format: "%K >= %@", "newCategoryAdded", NSNumber(value: true)), isCompleted: false))
-        challenges.append(Challenge(title: "addEntries \(5)", requirement: NSPredicate(format: "%K >= %@", "entriesAdded", NSNumber(value: 5)), isCompleted: false))
+        challenges.append(Challenge(title: "addEntries", requirement: NSPredicate(format: "%K >= %@", "entriesAdded", NSNumber(value: 5)), isCompleted: false))
         challenges.append(Challenge(title: "achieveRecord", requirement: NSPredicate(format: "%K >= %@", "newPersonalBest", NSNumber(value: true)), isCompleted: false))
     }
     
